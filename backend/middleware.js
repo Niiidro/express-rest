@@ -1,4 +1,7 @@
 import PasswordValidator from 'password-validator';
+import jwt from 'jsonwebtoken';
+import fs from 'fs';
+import path from 'path';
 
 export function checkMail(req, res, next) {
     const regex =
@@ -28,7 +31,28 @@ export function checkPassword(req, res, next) {
         );
     }
 }
+export function jwtVerify(req, res, next) {
+    const authHeader = req.header('Authorization');
+    const bearer = authHeader.split(' ');
+    const token = bearer[1];
+    const publicKey = fs.readFileSync(
+        path.resolve('./assets/publicKey.pub'),
+        'utf8'
+    );
+    jwt.verify(
+        token,
+        publicKey,
+        { issuer: 'pminder.dev', algorithms: 'RS256' },
+        function (err, decoded) {
+            if (err) {
+                res.status(401).send('Unauthorized Token');
+            }
+        }
+    );
+    next();
+}
 export default {
     checkMail,
-    checkPassword
-}
+    checkPassword,
+    jwtVerify,
+};
