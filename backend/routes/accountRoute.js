@@ -1,5 +1,4 @@
 import express from 'express';
-import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import fs from 'fs';
 import path from 'path';
@@ -25,9 +24,8 @@ router.get('/account', jwtVerify, (req, res) => {
 router.get('/account/:id', jwtVerify, (req, res) => {
     const id = req.params.id;
     Account.findById(id, function (err, doc) {
-        if (err) {
-            res.status(500).send('A Problem occured while searching Account.');
-        } else if (doc) {
+        if (err) throw err;
+        if (doc) {
             res.status(200).send(doc);
         } else {
             res.status(404).send('No Account found with this ID');
@@ -101,8 +99,10 @@ router.delete('/account/:id', jwtVerify, (req, res) => {
 //Login
 router.post('/auth/login', (req, res) => {
     const body = req.body;
+    console.log(body);
     Account.findOne({ email: body.email }, function (err, doc) {
         if (err) throw err;
+
         doc.comparePassword(body.password, function (err, isMatch) {
             if (err) throw err;
             if (isMatch) {
