@@ -25,7 +25,7 @@ router.get('/account', jwtVerify, (req, res) => {
 router.get('/account/:id', jwtVerify, (req, res) => {
     const id = req.params.id;
     Account.findById(id, function (err, doc) {
-        if (err) throw "HI",err;
+        if (err) throw err;
         if (doc) {
             res.status(200).send(doc);
         } else {
@@ -128,7 +128,6 @@ router.post('/auth/login', (req, res) => {
                         privateKey,
                         { issuer: 'pminder.dev', algorithm: 'RS256' }
                     );
-                    console.log(token);
                     res.status(200).send({
                         access_token: token,
                     });

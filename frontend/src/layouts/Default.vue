@@ -1,6 +1,9 @@
 <template>
     <div class="container">
         <nav>
+            <el-button @click="router.push('/')" type="text"
+                >Home</el-button
+            >
             <el-popover
                 placement="bottom"
                 :width="300"
@@ -25,6 +28,7 @@ import jwtDecode from 'jwt-decode';
 import { api } from '../configs/axios.js';
 import AccountInformation from './components/AccountInformation.vue';
 
+const router = useRouter();
 const account = ref('');
 
 onMounted(async () => {
@@ -34,14 +38,14 @@ onMounted(async () => {
 </script>
 <style lang="sass" scoped>
 .container
-
 nav
   display: flex
-  justify-content: right
+  justify-content: space-between
   align-items: center
   background-color: black
   height: 50px
+  padding: 5px 20px
 
 main
-  margin: 15px 0px 0px
+  padding: 5px 20px
 </style>

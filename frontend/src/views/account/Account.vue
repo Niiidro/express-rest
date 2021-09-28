@@ -9,10 +9,11 @@
             <el-button @click="updateMail">Ändern</el-button>
             <el-divider />
             <span>Passwort ändern</span>
-            <el-input v-model="password" placeholder="Neues Passwort" />
+            <el-input v-model="password" placeholder="Neues Passwort" show-password />
             <el-input
                 v-model="passwordConfirm"
                 placeholder="Neues Passwort bestätigen"
+                show-password
             />
             <el-button @click="updatePassword" placeholder>Ändern</el-button>
             <el-divider />
