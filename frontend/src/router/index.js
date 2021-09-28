@@ -8,7 +8,6 @@ const Router = createRouter({
 
 Router.beforeEach((to, from, next) => {
     if (to.matched.some((record) => record.meta.requiresAuth)) {
-        console.log(localStorage.getItem('access_token'));
         // this route requires auth, check if logged in
         // if not, redirect to login page.
         if (!localStorage.getItem('access_token')) {

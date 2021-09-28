@@ -1,22 +1,29 @@
 const routes = [
-  {
-    path: "/",
-    component: () => import("../layouts/Default.vue"),
-    meta: {
-      requiresAuth: true,
+    {
+        path: '/',
+        component: () => import('../layouts/Default.vue'),
+        meta: {
+            requiresAuth: true,
+        },
+        children: [
+            {
+                path: '',
+                component: () => import('../views/home/Home.vue'),
+            },
+            {
+                path: '/account',
+                component: () => import('../views/account/Account.vue'),
+            },
+        ],
     },
-    children: [
-      {
-        path: "",
-        component: () => import("../views/Home/Home.vue"),
-      },
-    ],
-  },
-  {
-    path: "/login",
-    component: () => import("../views/Login.vue"),
-  },
-
+    {
+        path: '/login',
+        component: () => import('../views/Login.vue'),
+    },
+    {
+        path: '/register',
+        component: () => import('../views/Register.vue'),
+    },
 ];
 
 export default routes;

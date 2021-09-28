@@ -34,7 +34,7 @@ const AccountSchema = new Schema(
 );
 
 //Hash Password when save Account https://www.mongodb.com/blog/post/password-authentication-with-mongoose-part-1
-AccountSchema.pre('save', function (next) {
+AccountSchema.pre(['save', 'findByIdAndUpdate'], function (next) {
     let user = this;
     if (!user.isModified('password')) return next();
     bcrypt.genSalt(10, function (err, salt) {

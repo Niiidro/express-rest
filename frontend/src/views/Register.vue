@@ -3,10 +3,13 @@
         <el-card class="card">
             <template #header>
                 <div class="card-header">
-                    <span>Login</span>
+                    <span>Registrierung</span>
                 </div>
             </template>
             <el-form>
+                <el-form-item>
+                    <el-input v-model="name" placeholder="Vor- & Nachname" />
+                </el-form-item>
                 <el-form-item>
                     <el-input v-model="email" placeholder="E-Mail" />
                 </el-form-item>
@@ -19,11 +22,11 @@
                 </el-form-item>
                 <el-form-item>
                     <div class="buttons">
-                        <el-button @click="router.push('/register')" type="text"
-                            >Konto erstellen</el-button
+                        <el-button @click="router.push('/login')" type="text"
+                            >stattdessen anmelden</el-button
                         >
-                        <el-button type="primary" @click="login"
-                            >Login</el-button
+                        <el-button type="primary" @click="register"
+                            >Registrieren</el-button
                         >
                     </div>
                 </el-form-item>
@@ -38,19 +41,19 @@ import { api } from '../configs/axios.js';
 
 const router = useRouter();
 
+const name = ref('');
 const email = ref('');
 const password = ref('');
 
-function login() {
-    api.post('/auth/login', {
+function register() {
+    api.post('/account', {
+        name: name.value,
         email: email.value,
         password: password.value,
     })
         .then((response) => {
-            const token = response.data.access_token;
-            localStorage.setItem('access_token', token);
             router.push({
-                path: '/',
+                path: '/login',
             });
         })
         .catch((error) => {
@@ -73,6 +76,6 @@ card-header
   align-items: center
 
 .buttons
-    display: flex
-    justify-content: space-between
+  display: flex
+  justify-content: space-between
 </style>
