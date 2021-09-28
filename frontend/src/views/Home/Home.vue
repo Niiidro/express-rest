@@ -1,6 +1,6 @@
 <template>
     <div v-if="account">
-        <h1 class="title">Wilkommen {{ account.name }}</h1>
+        <h1 class="title">Willkommen {{ account.name }}</h1>
     </div>
 </template>
 <script setup>
